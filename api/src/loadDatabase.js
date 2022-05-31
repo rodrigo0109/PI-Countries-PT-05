@@ -3,7 +3,7 @@ const { Country } = require('./db')
 
 async function loadDatabase() {
     let countries = Country.findAll()
-    if (!countries.length > 0) {
+    if ( !countries.length ) {
         let countriesApi = (await axios.get('https://restcountries.com/v3/all')).data
         let countriesApiRes = countriesApi.map(c => (
             {
@@ -33,6 +33,8 @@ async function loadDatabase() {
         } ) */
         await Country.bulkCreate(countriesApiRes) //crea varias filas de una recibiendo el arreglo de paises
         console.log('ok')
+    } else {
+        console.log('ya estam')
     }
 }
 
