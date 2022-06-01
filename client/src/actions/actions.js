@@ -1,17 +1,18 @@
 import axios from 'axios'
 
-//import { GET_ALL_COUNTRIES } from '../types/types'
 export const GET_ALL_COUNTRIES = 'GET_ALL_COUNTRIES'
 export const GET_COUNTRIES_NAME = 'GET_COUNTRIES_NAME'
 export const GET_COUNTRY_ID = 'GET_COUNTRY_ID'
-export const GET_BY_CONTINENT = 'GET_BY_CONTINENT'
+export const ORDER_BY_CONTINENT = 'ORDER_BY_CONTINENT'
 export const GET_BY_ORDER = 'GET_BY_ORDER'
+export const GET_BY_ORDER_POP = 'GET_BY_ORDER_POP'
+export const GET_ACTIVITIES = 'GET_ACTIVITIES'
+export const ORDER_BY_ACTIVITIES = 'ORDER_BY_ACTIVITIES'
 
 
 export const getAllCountries = () => {
     return async (dispatch) => {
         let res = await axios.get('http://localhost:3001/countries')
-        //console.log('pide',res.data)
         dispatch({
             type: GET_ALL_COUNTRIES,
             payload: res.data
@@ -19,12 +20,9 @@ export const getAllCountries = () => {
     };
 };
 
-
-export const getCountriesByName = (query) => {
+export const getCountriesByName = (name) => {
     return async (dispatch) => {
-        //console.log(query)
-        let res = await axios.get(`http://localhost:3001/countries?name=${query.name}&continent=${query.continent}`)
-        //console.log('resName',res.data)
+        let res = await axios.get(`http://localhost:3001/countries?name=${name}`)  
         dispatch({
             type: GET_COUNTRIES_NAME,
             payload: res.data
@@ -35,7 +33,6 @@ export const getCountriesByName = (query) => {
 export const getCountryById = (id) => {
     return async (dispatch) => {
         let res = await axios.get(`http://localhost:3001/countries/${id}`)
-        //console.log('resID',res.data)
         dispatch({
             type: GET_COUNTRY_ID,
             payload: res.data
@@ -43,17 +40,26 @@ export const getCountryById = (id) => {
     }
 }
 
+export const getActivities = () => {
+    return async (dispatch) => {
+        let res = await axios.get('http://localhost:3001/activity')
+        //console.log(res.data)
+        dispatch({
+            type: GET_ACTIVITIES,
+            payload: res.data
+        })
+    }
+}
+
 export const createActivity = (payload) => {
     return async () => {
-        //console.log(payload)
-        let res = await axios.post(`http://localhost:3001/activity`, payload)
-        console.log(res.data)
+        await axios.post(`http://localhost:3001/activity`, payload)
     }
 }
 
 export const filterByContinent = (payload) => {
     return {
-        type: GET_BY_CONTINENT,
+        type: ORDER_BY_CONTINENT,
         payload
     }
 }
@@ -61,6 +67,20 @@ export const filterByContinent = (payload) => {
 export const Order = (payload) => {
     return {
         type: GET_BY_ORDER,
+        payload
+    }
+}
+
+export const getByOrderPop = (payload) => {
+    return {
+        type: GET_BY_ORDER_POP,
+        payload
+    }
+}
+
+export const orderByActivity = (payload) => {
+    return {
+        type: ORDER_BY_ACTIVITIES,
         payload
     }
 }

@@ -5,7 +5,7 @@ import './Activity.css'
 
 const Activity = () => {
 
-  const countries = useSelector( state => state.countries );
+  const countries = useSelector(state => state.countries);
 
   const [input, setInput] = useState({
     name: '',
@@ -16,7 +16,7 @@ const Activity = () => {
   })
 
   const dispatch = useDispatch();
-  
+
   const handleInputChange = (e) => {
     setInput({
       ...input,
@@ -26,20 +26,27 @@ const Activity = () => {
   console.log(input)
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch( createActivity(input) )
+    dispatch(createActivity(input))
+    setInput({
+      name: '',
+      difficulty: '',
+      duration: '',
+      season: '',
+      countries: []
+    })
   }
 
   const handleCountry = (e) => {
     setInput({
       ...input,
-      countries:[...input.countries, e.target.value]
+      countries: [...input.countries, e.target.value]
     })
   }
 
   const handleDeleteCountry = (country) => {
     setInput({
       ...input,
-      countries: input.countries.filter( el => el !== country)
+      countries: input.countries.filter(el => el !== country)
     })
   }
 
@@ -91,7 +98,7 @@ const Activity = () => {
           <select type='text' name='countries' onChange={handleCountry} >
             <option>-</option>
             {
-              countries.map( c => (
+              countries.map(c => (
                 <option value={c.id} key={c.id}>{c.name}</option>
               ))
             }
@@ -100,7 +107,7 @@ const Activity = () => {
         <div>
           <ul>
             {
-              input.countries.map( c => (
+              input.countries.map(c => (
                 <div key={c}>
                   <li>{c}</li>
                   <button onClick={() => handleDeleteCountry(c)}>X</button>

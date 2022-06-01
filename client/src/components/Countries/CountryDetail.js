@@ -15,8 +15,8 @@ const CountryDetail = () => {
     }, [dispatch])
     
     const countryDetail = useSelector(state => state.countryDetail);
-    const { flag, name, region, subregion, capital, population, area } = countryDetail
-    //console.log(countryDetail)
+    const { flag, name, region, subregion, capital, population, area, activities } = countryDetail
+    console.log(countryDetail)
     return (
         <div>
             <Link to='/countries'>Volver</Link>
@@ -29,6 +29,15 @@ const CountryDetail = () => {
                 <h2>Region: {subregion}</h2>
                 <h2>Surface: {area} KM</h2>
                 <h2>Pop. {population}</h2>
+                <h2>Activities</h2>
+                {
+                    activities?.length > 0 ? 
+                    activities.map( (a,i) => (
+                        <p key={i}>{a.name}</p>
+                    ))
+                    :
+                    <p>Nothing to show</p>
+                }
             </div>
         </div>
     )

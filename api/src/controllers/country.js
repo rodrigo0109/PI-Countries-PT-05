@@ -1,20 +1,23 @@
-const { Country } = require('../db')
+const { Country, Activity } = require('../db')
 
 async function getAllCountries(req, res, next) {
-    let { name, continent } = req.query
-    console.log('en back',req.query)
+    //let { name, continent } = req.query
+    let { name } = req.query
+    console.log('en back', req.query)
     try {
-        let Allcountries = await Country.findAll()
+        let Allcountries = await Country.findAll({ include: Activity })
         if (name) {
-            if(continent === '' || continent === 'All'){
-                let countries = Allcountries.filter(c => c.name.toLowerCase().includes(name.toLowerCase()))
-                res.send(countries)
-            } else {
-                let countries = Allcountries.filter(c => c.name.toLowerCase().includes(name.toLowerCase()) && c.region === continent )
-                res.send(countries)
-            }
+            let countries = Allcountries.filter(c => c.name.toLowerCase().includes(name.toLowerCase()))
+            res.send(countries)
+            ///////////// PARA BUSCAR SOLO EN EL CONTINENTE FILTRADO ////////////////////////
+            /*  if (continent === 'All') {
+                 let countries = Allcountries.filter(c => c.name.toLowerCase().includes(name.toLowerCase()))
+                 res.send(countries)
+             } else {
+                 let countries = Allcountries.filter(c => c.name.toLowerCase().includes(name.toLowerCase()) && c.region === continent)
+                 res.send(countries)
+             } */
         } else {
-            //console.log('paises',Allcountries)
             res.send(Allcountries)
         }
     } catch (error) {
@@ -24,11 +27,27 @@ async function getAllCountries(req, res, next) {
 
 async function getCountryById(req, res) {
     let { id } = req.params
-    console.log('id', id)
     try {
 
-        let country = await Country.findByPk(id)
-        //console.log(country.toJSON())
+        let country = await Country.findByPk(id, { include: Activity })
+        country = {
+            id: country.id,
+            name: country.name,
+            flag: country.flag,
+            region: country.region,
+            capital: country.capital,
+            subregion: country.subregion,
+            area: country.area,
+            population: country.population,
+            activities: country.activities.map(a => (
+                {
+                    id: a.id,
+                    name: a.name,
+                    difficulty: a.difficulty,
+                    season: a.season
+                }
+            ))
+        }
         res.send(country)
     } catch (error) {
         res.send(error)
