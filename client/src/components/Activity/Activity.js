@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { createActivity, getAllCountries } from '../../actions/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import './Activity.css'
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Activity = () => {
 
@@ -14,15 +14,15 @@ const Activity = () => {
   const countriesList = [...countries]
 
   countriesList.sort((a, b) => {
-    if(a.name < b.name){
+    if (a.name < b.name) {
       return -1;
     }
-    if(a.name > b.name){
+    if (a.name > b.name) {
       return 1;
     }
     return 0;
   })
-  
+
   const [input, setInput] = useState({
     name: '',
     difficulty: 0,
@@ -31,22 +31,17 @@ const Activity = () => {
     countries: []
   })
 
-/*   useEffect(() => {
-    return () => dispatch(getAllCountries())
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []) */
-  
   const validate = (value, condition) => {
-    if(value === '') return false
+    if (value === '') return false
     let res = []
     for (let i = 0; i < value.length; i++) {
       for (let j = 0; j < condition.length; j++) {
-        if( value[i] === condition[j] ) res.push(value[i])
+        if (value[i] === condition[j]) res.push(value[i])
       }
     }
-    if( value === res.join('') ) return true
+    if (value === res.join('')) return true
   }
-  
+
   const handleInputChange = (e) => {
     setInput({
       ...input,
@@ -55,16 +50,16 @@ const Activity = () => {
   }
 
   //console.log(input)
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     let countries = input.countries
     let name = input.name.toLowerCase()
     let caracteres = 'abcdefghijklmnñopqrstuvwxyzáéíóúßäëïöü '
 
-    if( !validate(name, caracteres) ) return alert('Field name is required, only letters')
-    if (countries.length === 0 ) return alert('Select one country minimum')
+    if (!validate(name, caracteres)) return alert('Field name is required, only letters')
+    if (countries.length === 0) return alert('Select one country minimum')
     if (input.difficulty === 0 || input.duration === 0 || input.season === '') return alert('One option on every field is required')
-    
+
     dispatch(createActivity(input))
 
     navigate('/countries', {
@@ -75,14 +70,14 @@ const Activity = () => {
   }
 
   const handleCountry = (e) => {
-    if( input.countries.includes(e.target.value) ) return alert('This country was already selected')
+    if (input.countries.includes(e.target.value)) return alert('This country was already selected')
     setInput({
       ...input,
       countries: [...input.countries, e.target.value]
     })
   }
 
-  const handleDeleteCountry = (e,country) => {
+  const handleDeleteCountry = (e, country) => {
     e.preventDefault()
     setInput({
       ...input,
@@ -92,17 +87,16 @@ const Activity = () => {
 
   return (
     <div className='activity_container'>
-      <Link className='btn-back_activity' to='/countries'>Home</Link>
       <h1 className='create_activity_title'>Create activity</h1>
       <form className='form' onSubmit={handleSubmit}>
         <div className='field_container'>
-          <input className='buscador' type='text'  name='name' autoComplete='off' onChange={handleInputChange} />
+          <input className='buscador' type='text' name='name' autoComplete='off' onChange={handleInputChange} />
           <label className='lbl_buscador' htmlFor='name'>
             <span className='text'>Name of activity</span>
           </label>
         </div>
         <div className='field_container'>
-          <select className='select_activity'  type='text' name='difficulty' onChange={handleInputChange} >
+          <select className='select_activity' type='text' name='difficulty' onChange={handleInputChange} >
             <option value={0}>Select difficulty</option>
             <option value={"1"}>1</option>
             <option value={"2"}>2</option>
@@ -110,7 +104,7 @@ const Activity = () => {
           </select>
         </div>
         <div className='field_container'>
-          <select className='select_activity'  type='text' name='duration' onChange={handleInputChange} >
+          <select className='select_activity' type='text' name='duration' onChange={handleInputChange} >
             <option value={0}>Select duration (in hours)</option>
             <option value={1}>1</option>
             <option value={2}>2</option>
@@ -149,7 +143,7 @@ const Activity = () => {
               input.countries.map(c => (
                 <div key={c} className="countries_selected_all">
                   <li>{c}</li>
-                  <button onClick={(e) => handleDeleteCountry(e,c)}>X</button>
+                  <button onClick={(e) => handleDeleteCountry(e, c)}>X</button>
                 </div>
               ))
             }

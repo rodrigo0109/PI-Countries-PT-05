@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { filterByContinent, getActivities, getAllCountries, getByOrderPop, getCountriesByName, Order, orderByActivity } from '../../actions/actions';
+import { filterByContinent, getActivities, getByOrderPop, getCountriesByName, Order, orderByActivity } from '../../actions/actions';
 import CountryCard from './CountryCard';
 import './Countries.css'
 import CountryNotFound from './CountryNotFound';
@@ -14,17 +14,21 @@ const Countries = () => {
 
     const [currentPage, setCurrentPage] = useState(0);
     const [order, setOrder] = useState('');
-    const [country, setCountry] = useState('')
+    const [continent, setContinent] = useState('')
+    const [act, setAct] = useState('')
 
     const handleInputChange = (e) => {
         dispatch(getCountriesByName(e.target.value))
-        setCountry(e.target.value)
+        //setCountry(e.target.value)
+        //dispatch(filterByContinent('All'))
+        setContinent('All')  //al escribir limpia el filtro por continente
+        setAct('') //al escribir limpia el filtro por actividad
     }
 
     //////// SELECT_CONTINENT ///////////
     const handleSearchChange = (e) => {
         dispatch(filterByContinent(e.target.value))
-        setOrder(e.target.value)
+        setContinent(e.target.value)
     }
 
     ///////// PAGINADO ////////////////////////
@@ -56,11 +60,6 @@ const Countries = () => {
 
     useEffect(() => {
         dispatch(getActivities())
-        if( state.length === 0 ){ //si actualizo realiza la peticion
-            dispatch(getAllCountries())
-        }
-        //window.addEventListener("beforeunload", dispatch(getAllCountries()));
-        //return () => dispatch(getAllCountries())
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -87,7 +86,7 @@ const Countries = () => {
 
     const handleActivity = (e) => {
         dispatch(orderByActivity(e.target.value))
-        setOrder(e.target.value)
+        setAct(e.target.value)
     }
 
 
@@ -97,14 +96,14 @@ const Countries = () => {
             <div className='filter_container'>
                 <div className='input_container'>
                     <form className='search_form'>
-                        <input className='buscador' autoComplete='off' type='text' name='country' value={country} onChange={(e) => handleInputChange(e)} />
+                        <input className='buscador' autoComplete='off' type='text' name='country' /* value={country} */ onChange={(e) => handleInputChange(e)} />
                         <label className='lbl_buscador' htmlFor='country'>
                             <span className='text'>Country</span>
                         </label>
                     </form>
                     <div className='search'>
                         <label htmlFor='continent'></label>
-                        <select className='select'onChange={(e) => handleSearchChange(e)} >
+                        <select className='select' value={continent} onChange={(e) => handleSearchChange(e)} >
                             {/* <option>Order by continent</option> */}
                             <option value={'All'}>All continents</option>
                             <option value={'Africa'}>Africa</option>
@@ -115,8 +114,8 @@ const Countries = () => {
                         </select>
 
                         <label htmlFor='activity'></label>
-                        <select className='select' onChange={handleActivity} >
-                            {/*  <option>Order by Activity</option> */}
+                        <select className='select' value={act} onChange={handleActivity} >
+                            <option value={''}>Select activity</option>
                             <option value={'All'}>All activities</option>
                             {
                                 activity?.map(a => (

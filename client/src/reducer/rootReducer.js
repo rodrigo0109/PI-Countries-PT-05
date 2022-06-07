@@ -35,12 +35,11 @@ const rootReducer = (state = initialState, action) => {
       }
 
     case ORDER_BY_CONTINENT:
-      const continents = [...state.countriesFiltered];
+      const continents = state.countriesFiltered;
       const continentFilter = action.payload === 'All' ? continents : continents.filter(el => el.region === action.payload)
       return {
         ...state,
-        countries: continentFilter,
-        continent: action.payload
+        countries: continentFilter
       }
 
     case ORDER_BY_ACTIVITIES:
@@ -49,7 +48,7 @@ const rootReducer = (state = initialState, action) => {
         activities.filter(c => c.activities.find(el => el.name.toLowerCase() === action.payload))
       return {
         ...state,
-        countries: activitiesFiltered
+        countries: action.payload === '' ? activities : activitiesFiltered
       }
 
 

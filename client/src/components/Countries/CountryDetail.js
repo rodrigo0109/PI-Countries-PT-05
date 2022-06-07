@@ -15,11 +15,10 @@ const CountryDetail = () => {
     }, [dispatch])
     
     const countryDetail = useSelector(state => state.countryDetail);
-    const { flag, name, region, subregion, capital, population, area, activities, maps } = countryDetail
+    const { flag, name, region, subregion, capital, population, area, activities, /* maps */ } = countryDetail
     console.log(countryDetail)
     return (
         <div className='country_detail'>
-            <Link className='btn-back' to='/countries'>Home</Link>
             <div className='country_card_detail'>
                 <div className='flag_container'>
                     <img src={flag} alt={name} />
