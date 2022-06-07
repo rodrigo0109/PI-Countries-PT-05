@@ -39,6 +39,7 @@ async function getCountryById(req, res) {
             subregion: country.subregion,
             area: country.area,
             population: country.population,
+            maps: country.maps,
             activities: country.activities.map(a => (
                 {
                     id: a.id,

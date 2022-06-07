@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { filterByContinent, getActivities, getAllCountries, getByOrderPop, getCountriesByName, Order, orderByActivity } from '../../actions/actions';
 import CountryCard from './CountryCard';
 import './Countries.css'
+import CountryNotFound from './CountryNotFound';
 
 const Countries = () => {
 
     const dispatch = useDispatch();
-    
+
     const state = useSelector(state => state.countries);
     const activity = useSelector(state => state.activity);
 
@@ -52,81 +53,94 @@ const Countries = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [state])
 
-    
+
     useEffect(() => {
-        dispatch(getAllCountries())
         dispatch(getActivities())
+        if( state.length === 0 ){ //si actualizo realiza la peticion
+            dispatch(getAllCountries())
+        }
+        //window.addEventListener("beforeunload", dispatch(getAllCountries()));
+        //return () => dispatch(getAllCountries())
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [dispatch])
+    }, [])
 
     ///////// A-Z //////////////////
-    const handleOrder = (e) => {
+    const handleAscOrder = (e) => {
         e.preventDefault()
-        dispatch(Order(e.target.value))
-        setOrder(e.target.value)
+        dispatch(Order('Asc'))
+        setOrder('Asc')
+    }
+    const handleDescOrder = (e) => {
+        e.preventDefault()
+        dispatch(Order('Desc'))
+        setOrder('Desc')
     }
 
-    const handleOrderPop = (e) => {
-        dispatch( getByOrderPop(e.target.value))
-        setOrder(e.target.value)
+    const handleOrderPopAsc = (e) => {
+        dispatch(getByOrderPop('Asc'))
+        setOrder('Asc')
+    }
+    const handleOrderPopDesc = (e) => {
+        dispatch(getByOrderPop('Desc'))
+        setOrder('Desc')
     }
 
     const handleActivity = (e) => {
-        dispatch( orderByActivity(e.target.value) )
+        dispatch(orderByActivity(e.target.value))
         setOrder(e.target.value)
     }
 
+
+    //console.log(state)
     return (
         <div className='countries'>
             <div className='filter_container'>
-                <form className='search_form'>
-                    <label htmlFor='country'></label>
-                    <input type='text' name='country' value={country} placeholder='write a country' onChange={(e) => handleInputChange(e)} />
-                </form>
-                <h3>Order by</h3>
-                <div className='search'>
-                    <label htmlFor='continent'></label>
-                    <select className='select' type='text' name='continent' onChange={(e) => handleSearchChange(e)} >
-                        {/* <option>Order by continent</option> */}
-                        <option value={'All'}>All continents</option>
-                        <option value={'Africa'}>Africa</option>
-                        <option value={'Americas'}>Americas</option>
-                        <option value={'Asia'}>Asia</option>
-                        <option value={'Europe'}>Europe</option>
-                        <option value={'Oceania'}>Oceania</option>
-                    </select>
+                <div className='input_container'>
+                    <form className='search_form'>
+                        <input className='buscador' autoComplete='off' type='text' name='country' value={country} onChange={(e) => handleInputChange(e)} />
+                        <label className='lbl_buscador' htmlFor='country'>
+                            <span className='text'>Country</span>
+                        </label>
+                    </form>
+                    <div className='search'>
+                        <label htmlFor='continent'></label>
+                        <select className='select'onChange={(e) => handleSearchChange(e)} >
+                            {/* <option>Order by continent</option> */}
+                            <option value={'All'}>All continents</option>
+                            <option value={'Africa'}>Africa</option>
+                            <option value={'Americas'}>Americas</option>
+                            <option value={'Asia'}>Asia</option>
+                            <option value={'Europe'}>Europe</option>
+                            <option value={'Oceania'}>Oceania</option>
+                        </select>
+
+                        <label htmlFor='activity'></label>
+                        <select className='select' onChange={handleActivity} >
+                            {/*  <option>Order by Activity</option> */}
+                            <option value={'All'}>All activities</option>
+                            {
+                                activity?.map(a => (
+                                    <option value={a} key={a}>{a}</option>
+                                ))
+                            }
+                        </select>
+                    </div>
                 </div>
-                
-                <div className='search'>
-                    
-                    <label htmlFor='activity'></label>
-                    <select className='select' type='text' name='activity' onChange={handleActivity} >
-                       {/*  <option>Order by Activity</option> */}
-                        <option value={'All'}>All activities</option>
-                        {
-                            activity?.map( a => (
-                                <option value={a} key={a}>{a}</option>
-                            ) )
-                        }
-                    </select>
+
+                <div className='filter'>
+                    <button className='pag_prev' disabled={currentPage < 10} onClick={handlePrev}>PREV</button>
+                    <div className='order'>
+                        <button onClick={handleAscOrder}>A - Z</button>
+                        <button onClick={handleDescOrder}>Z - A</button>
+                    </div>
+                    <div className='order'>
+                        <button onClick={handleOrderPopAsc}>+ Pop</button>
+                        <button onClick={handleOrderPopDesc}>- Pop</button>
+                    </div>
+                    <button className='pag_next' onClick={handleNext}>NEXT</button>
                 </div>
-                
-                <button disabled={currentPage < 10} onClick={handlePrev}>prev</button>
-                
-                <select className='select' type='text' name='order' onChange={handleOrder} >
-                    {/* <option>Order</option> */}
-                    <option value={'Asc'}>A-Z</option>
-                    <option value={'Desc'}>Z-A</option>
-                </select>
-                <select className='select' type='text' name='order_pop' onChange={handleOrderPop} >
-                    {/* <option>Order</option> */}
-                    <option value={'Asc'}>+ Pop</option>
-                    <option value={'Desc'}>- Pop</option>
-                </select>
-                
-                <button onClick={handleNext}>next</button>
             </div>
-            
+
             <div className='countries_cards_container'>
                 {
                     countries.length > 0 ?
@@ -140,7 +154,7 @@ const Countries = () => {
                             />
                         ))
                         :
-                        <p>No countries to show</p>
+                        <CountryNotFound />
                 }
             </div>
         </div>

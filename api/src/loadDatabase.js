@@ -14,7 +14,8 @@ async function loadDatabase() {
                 capital: c.capital ? c.capital[0] : 'Not found',
                 subregion: c.subregion,
                 area: c.area,
-                population: c.population
+                population: c.population,
+                maps: c.maps.googleMaps
             }
         ))
         /* countriesApiRes.forEach( async(c) => {

@@ -28,6 +28,14 @@ async function createActivity(req, res) {
             where: {
                 name: name
             },
+            include: {
+                model: Country
+            }
+        })
+        /* let activityCountry = await Activity.findOne({
+            where: {
+                name: name
+            },
             attributes: {
                 exclude: ['updatedAt', 'createdAt'],
             },
@@ -37,7 +45,7 @@ async function createActivity(req, res) {
                     attributes: []
                 }
             }
-        })
+        }) */
         //console.log(activityCountry)
         res.send(activityCountry)
     } catch (error) {

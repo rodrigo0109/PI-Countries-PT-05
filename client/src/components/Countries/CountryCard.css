@@ -1,60 +1,278 @@
+*{
+    box-sizing: border-box;
+}
 
 .country_card{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 25%;
-    height: 450px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0px 5px 5px 0px rgba(88, 88, 88, 0.75);
+    width: 250px;
+    height: 400px;
+    background-color: #323232;
+    /* border-radius: 5px; */
+    box-shadow: 5px 5px 5px rgb(37, 37, 37);
+               /*  -5px -5px -5px #efefef; */
     margin-bottom: 25px;
-    margin-left: 20px;
+    margin-left: 10px;
+    position: relative;
+    transform: scale(0.95);
+    transition: all 0.4s ease-in-out;
+    animation: fadeIn 0.8s;
+    overflow: hidden;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.country_card:hover {
+    transform: translate(-5px,-5px);
+}
+
+.country_card img{
+    position: absolute;
+    width: 100%;
+    height: 170px;
+    top: 0;
+    object-fit: cover;
+}
+
+.img_not_found{
+    position: absolute;
+    width: 100%;
+    height: auto;
+    top: 0;
+    object-fit: cover;
+    object-position: bottom;
+}
+
+.message_not_found{
+    color: #FD2155;
+}
+
+.loader {
+    width: 50px;
+    height: 50px;
+    margin: auto;
+    border: 2px solid #08FDD8;
+    border-bottom: solid transparent 2px;
+    border-radius: 50%;
+    animation: loader 1s linear infinite;
+}
+
+@keyframes loader {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.content{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: lighter;
+    text-align: center;
+    /* position: relative; */
+    padding: 0 10px;
+    /* border: 1px solid red; */
+    z-index: 0;
+}
+.content::after{
+    position: absolute;
+    content: "";
+    background-color: #202020;
+    width: 100%;
+    height: 300px;
+    right: 0;
+    left: 0;
+    top: 120px;
+    transform: skewY(14deg);
+    z-index: -1;
+}
+
+.country_card h1{
+    font-size: 22px;
+    color: #fff;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.country_card h2{
+    font-size: 16px;
+    color: #fff;
+}
+
+.btn_info {
+    position: absolute;
+    left: 30px;
+    text-decoration: none;
+    color: #111;
+    font-size: 42px;
+    /* background-color: rgb(221, 209, 37); */
+    background: #08FDD8;
+    width: 55px;
+    height: 55px;
+    line-height: 55px;
+    text-align: center;
+    border-radius: 50%;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.4);
+}
+
+.btn_create-activity {
+    position: absolute;
+    align-self: center;
+    text-align: center;
+    line-height: 30px;
+    bottom: 15px; 
+    text-decoration: none;
+    color: #fff;
+    width: 180px;
+    height: 30px;
+    /* border: 1px solid red; */
+    /* background-color: #111; */
+    background: #FD2155;
+    transform: skew(-20deg);
+}
+
+.text_skew{
+    transform: skew(20deg);
+}
+
+/*--------------------------------------------------------------------------*/
+
+.country_detail {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    /* border: 1px solid red; */
+    background-image: url(../../images/pexels-aaditya-arora-592753.jpg);
+    background-size: cover;
 }
 
 .country_card_detail{
+    width: 80%;
+    height: 400px;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-evenly;
     align-items: center;
-    width: 25%;
-    height: auto;
-    background-color: #fff;
+    background-color: #323232;
     border-radius: 5px;
     box-shadow: 0px 5px 5px 0px rgba(88, 88, 88, 0.75);
-    margin-bottom: 25px;
-    margin-left: 20px;
+    margin: auto;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: lighter;
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+    animation: fadeIn 0.8s;
+}
+
+.flag_container{
+    width: 200px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* border: 1px solid red; */
+}
+
+.data_container{
+    width: 200px;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content:center;
+    font-size: 16px;
+    /* border: 1px solid red; */
+}
+.data_container p span{
+    color: #08FDD8;
+}
+
+.act_container{
+    width: 200px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* border: 1px solid red; */
+}
+.act_container h2{
+    font-size: 26px;
+}
+
+.maps_container{
+    width: 200px;
+    height: 100%;
+    border: 1px solid red;
 }
 
 .country_card_detail img {
-    width: 70%;
-    height: 150px;
+    width: 200px;
+    height: auto;
     margin-top: 20px;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     object-fit: cover;
     object-position: top center;
 }
 
 .country_card_detail h1{
-    font-size: 1.5em;
+    font-size: 22px;
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-.country_card img{
-    width: 70%;
-    height: 150px;
-    margin-top: 20px;
-    border-radius: 5px;
-}
-
-.country_card h1{
-    font-size: 1.5em;
-    margin-top: 10px;
+.btn_create-activity-detail{
+    align-self: center;
+    text-align: center;
+    line-height: 30px;
     margin-bottom: 10px;
+    text-decoration: none;
+    color: #111;
+    width: 180px;
+    height: 30px;
+    /* border: 1px solid red; */
+    /* background-color: #111; */
+    background: #08FDD8;
+    transform: skew(-20deg);
 }
 
+.btn-back {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 120px;
+    height: 30px;
+    border: 1px solid #08FDD8;
+    background: linear-gradient(to left, transparent 50%,#08FDD8 50%);
+    background-size: 200%;
+    background-position: right;
+    text-decoration: none;
+    color: #08FDD8;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+    transition: background-position 0.5s;
+}
+
+.btn-back:hover {
+    background-position: left;
+    color: #111;
+}
 /* .country_card h2{
 
 } */

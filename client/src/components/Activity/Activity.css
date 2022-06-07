@@ -3,38 +3,192 @@
 .activity_container {
     width: 100%;
     height: 100vh;
-    margin: auto;
+    border: 1px solid transparent;
     text-align: center;
+    /* background: #202020; */
+    background-image: url(../../images/pexels-aaditya-arora-592753.jpg);
+    background-size: cover;
+}
 
+.create_activity_title{
+    font-size: 22px;
+    font-weight: lighter;
+    color: #08FDD8;
 }
 
 .form {
-    width: 30%;
+    width: 350px;
     height: 500px;
     margin: auto;
-    border: 1px solid gray;
-    border-radius: 5px;
+    border: none;
+    box-shadow: 5px 5px 5px rgb(37, 37, 37);
+    /* border-radius: 5px; */
     display: flex; 
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
+    background: #202020;
+    animation: fadeIn 0.8s;
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .field_container{
-    display: flex;
-    flex-direction: column;
+    width: 80%;
+    height: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.field_container .lbl_buscador {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    border-bottom: 1px solid #c7c7c7;
     /* border: 1px solid red; */
-    width: 40%;
+}
+
+.field_container .lbl_buscador:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 100%;
+    height: 100%;
+    border-bottom: 2px solid #08FDD8;
+    transform: translateX(-100%);
+    transition: all 0.3s ease;
+}
+
+.text {
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    color: rgb(136, 136, 136);
+}
+
+.buscador:focus + .lbl_buscador .text{
+    transform: translateY(-80%);
+    font-size: 14px;
+    color: #08FDD8;
+}
+.field_container .buscador:focus + .lbl_buscador:after{
+    transform: translateX(0%);
+}
+
+.select_activity {
+    width: 100%;
+    height: 100%;
+    background: #323232;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: rgb(136, 136, 136);
+}
+
+.select_activity:focus{
+    border: 1px solid #08FDD8;
+    color: #08FDD8;
+    transition: all 0.3s ease-in-out;
+}
+
+.country_selected_area{
+    width: 80%;
+    height: 70px;
+    overflow: hidden;
+    /* border: 1px solid red; */
+}
+
+.ul_selected_area{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    list-style: none;
+}
+
+.countries_selected_all {
+    width: 30px;
+    height: 20px;
+    margin-right: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    justify-content: center;
+    color: #fff;
+    font-size: 14px;
+    animation: fadeIn 0.8s;
+}
+.countries_selected_all button{
+    width: 15px;
+    height: 15px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bolder;
+    background: #FD2155;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 5px;
+    transition: all 0.2s ease-in-out;
+}
+.countries_selected_all button:hover{
+    color: #fff;
 }
 
 .btn_save {
-    width: 100px;
+    width: 80%;
     height: 40px;
-    background-color: dimgray;
+    background-color: #FD2155;
     cursor: pointer;
     border: none;
-    color: #fafafa;
+    color: #111;
+    font-weight: bolder;
     border-radius: 2px;
+    transition: all 0.3s ease-in-out;
+}
+.btn_save:hover{
+    background-color: #fc3967
+}
+
+.btn-back_activity {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 120px;
+    height: 30px;
+    border: 1px solid #08FDD8;
+    background: linear-gradient(to left, transparent 50%,#08FDD8 50%);
+    background-size: 200%;
+    background-position: right;
+    text-decoration: none;
+    color: #08FDD8;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+    transition: background-position 0.5s;
+}
+
+.btn-back_activity:hover {
+    background-position: left;
+    color: #111;
 }
 
 /* .field_container select{

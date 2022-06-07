@@ -1,49 +1,89 @@
-import React, { useState } from 'react'
-import { createActivity } from '../../actions/actions';
+import React, { useEffect, useState } from 'react'
+import { createActivity, getAllCountries } from '../../actions/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import './Activity.css'
+import { Link, useNavigate } from 'react-router-dom';
 
 const Activity = () => {
 
-  const countries = useSelector(state => state.countries);
+  const navigate = useNavigate()
 
+  const dispatch = useDispatch();
+  const countries = useSelector(state => state.countriesFiltered);
+
+  const countriesList = [...countries]
+
+  countriesList.sort((a, b) => {
+    if(a.name < b.name){
+      return -1;
+    }
+    if(a.name > b.name){
+      return 1;
+    }
+    return 0;
+  })
+  
   const [input, setInput] = useState({
     name: '',
-    difficulty: '',
-    duration: '',
+    difficulty: 0,
+    duration: 0,
     season: '',
     countries: []
   })
 
-  const dispatch = useDispatch();
-
+/*   useEffect(() => {
+    return () => dispatch(getAllCountries())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []) */
+  
+  const validate = (value, condition) => {
+    if(value === '') return false
+    let res = []
+    for (let i = 0; i < value.length; i++) {
+      for (let j = 0; j < condition.length; j++) {
+        if( value[i] === condition[j] ) res.push(value[i])
+      }
+    }
+    if( value === res.join('') ) return true
+  }
+  
   const handleInputChange = (e) => {
     setInput({
       ...input,
       [e.target.name]: e.target.value
     })
   }
-  console.log(input)
-  const handleSubmit = (e) => {
+
+  //console.log(input)
+  const handleSubmit = async(e) => {
     e.preventDefault()
+    let countries = input.countries
+    let name = input.name.toLowerCase()
+    let caracteres = 'abcdefghijklmnñopqrstuvwxyzáéíóúßäëïöü '
+
+    if( !validate(name, caracteres) ) return alert('Field name is required, only letters')
+    if (countries.length === 0 ) return alert('Select one country minimum')
+    if (input.difficulty === 0 || input.duration === 0 || input.season === '') return alert('One option on every field is required')
+    
     dispatch(createActivity(input))
-    setInput({
-      name: '',
-      difficulty: '',
-      duration: '',
-      season: '',
-      countries: []
+
+    navigate('/countries', {
+      replace: true
     })
+    alert('Activity created')
+    await dispatch(getAllCountries()) //para que se cargue la nueva info al crear actividad
   }
 
   const handleCountry = (e) => {
+    if( input.countries.includes(e.target.value) ) return alert('This country was already selected')
     setInput({
       ...input,
       countries: [...input.countries, e.target.value]
     })
   }
 
-  const handleDeleteCountry = (country) => {
+  const handleDeleteCountry = (e,country) => {
+    e.preventDefault()
     setInput({
       ...input,
       countries: input.countries.filter(el => el !== country)
@@ -52,25 +92,26 @@ const Activity = () => {
 
   return (
     <div className='activity_container'>
-      <h1>Crear nueva actividad turística</h1>
+      <Link className='btn-back_activity' to='/countries'>Home</Link>
+      <h1 className='create_activity_title'>Create activity</h1>
       <form className='form' onSubmit={handleSubmit}>
         <div className='field_container'>
-          <label htmlFor='name'>Name</label>
-          <input type='text' name='name' placeholder='Name' onChange={handleInputChange} />
+          <input className='buscador' type='text'  name='name' autoComplete='off' onChange={handleInputChange} />
+          <label className='lbl_buscador' htmlFor='name'>
+            <span className='text'>Name of activity</span>
+          </label>
         </div>
         <div className='field_container'>
-          <label htmlFor='difficulty'>Difficulty</label>
-          <select type='text' name='difficulty' onChange={handleInputChange} >
-            <option>-</option>
-            <option value={1}>1</option>
-            <option value={2}>2</option>
-            <option value={3}>3</option>
+          <select className='select_activity'  type='text' name='difficulty' onChange={handleInputChange} >
+            <option value={0}>Select difficulty</option>
+            <option value={"1"}>1</option>
+            <option value={"2"}>2</option>
+            <option value={"3"}>3</option>
           </select>
         </div>
         <div className='field_container'>
-          <label htmlFor='duration'>Duration (in hours)</label>
-          <select type='text' name='duration' onChange={handleInputChange} >
-            <option>-</option>
+          <select className='select_activity'  type='text' name='duration' onChange={handleInputChange} >
+            <option value={0}>Select duration (in hours)</option>
             <option value={1}>1</option>
             <option value={2}>2</option>
             <option value={3}>3</option>
@@ -84,9 +125,8 @@ const Activity = () => {
           </select>
         </div>
         <div className='field_container'>
-          <label htmlFor='season'>Season</label>
-          <select type='text' name='season' onChange={handleInputChange} >
-            <option>-</option>
+          <select className='select_activity' type='text' name='season' onChange={handleInputChange} >
+            <option>Select season</option>
             <option value={'Autonm'}>Autonm</option>
             <option value={'Winter'}>Winter</option>
             <option value={'Spring'}>Spring</option>
@@ -94,29 +134,28 @@ const Activity = () => {
           </select>
         </div>
         <div className='field_container'>
-          <label htmlFor='countries'>Country/es</label>
-          <select type='text' name='countries' onChange={handleCountry} >
-            <option>-</option>
+          <select className='select_activity' type='text' name='countries' onChange={handleCountry} >
+            <option value={null}>Select country/es</option>
             {
-              countries.map(c => (
+              countriesList.map(c => (
                 <option value={c.id} key={c.id}>{c.name}</option>
               ))
             }
           </select>
         </div>
-        <div>
-          <ul>
+        <div className='country_selected_area'>
+          <ul className='ul_selected_area'>
             {
               input.countries.map(c => (
-                <div key={c}>
+                <div key={c} className="countries_selected_all">
                   <li>{c}</li>
-                  <button onClick={() => handleDeleteCountry(c)}>X</button>
+                  <button onClick={(e) => handleDeleteCountry(e,c)}>X</button>
                 </div>
               ))
             }
           </ul>
         </div>
-        <button className='btn_save' type='submit'>Save activity</button>
+        <button className='btn_save' type='submit'>SAVE</button>
       </form>
     </div>
   )
