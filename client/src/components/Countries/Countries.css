@@ -124,9 +124,15 @@
     border: none;
     outline: none;
     cursor: pointer;
+    transition: all 0.3s ease-in-out;
 }
 
 .select:focus{
+    border: 1px solid #08FDD8;
+    color: #08FDD8;
+    transition: all 0.3s ease-in-out;
+}
+.select:hover{
     border: 1px solid #08FDD8;
     color: #08FDD8;
     transition: all 0.3s ease-in-out;
@@ -150,7 +156,7 @@
     /* border: 1px solid red; */
 }
 
-.order button {
+/* .order button {
     width: 60px;
     height: 30px;
     color: #08FDD8;
@@ -158,6 +164,38 @@
     border: 1px solid #08FDD8;
     background: transparent;
     cursor: pointer;
+} */
+
+.btn_alfabetic {
+    width: 60px;
+    height: 30px;
+    color: #08FDD8;
+    outline: none;
+    border: 1px solid #08FDD8;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.btn_alfabetic:hover {
+    background-color: #08FDD8;
+    color: #111;
+    font-weight: bolder;
+}
+
+.btn_population{
+    width: 60px;
+    height: 30px;
+    color: #08FDD8;
+    outline: none;
+    border: 1px solid #08FDD8;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.btn_population:hover {
+    background-color: #08FDD8;
+    color: #111;
+    font-weight: bolder;
 }
 
 .pag_prev{

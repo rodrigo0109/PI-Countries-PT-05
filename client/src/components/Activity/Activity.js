@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import './Activity.css'
 import { useNavigate } from 'react-router-dom';
 
-const Activity = () => {
+const Activity = ({countryId}) => {
 
+  //console.log('id en activity', countryId)
   const navigate = useNavigate()
 
   const dispatch = useDispatch();
@@ -28,9 +29,9 @@ const Activity = () => {
     difficulty: 0,
     duration: 0,
     season: '',
-    countries: []
+    countries: countryId.length > 0 ? [countryId] : []
   })
-
+  //console.log(input.countries)
   const validate = (value, condition) => {
     if (value === '') return false
     let res = []

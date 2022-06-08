@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { getCountryById } from '../../actions/actions';
 
-const CountryDetail = () => {
+const CountryDetail = ({setCountryId}) => {
 
     const  {id}  = useParams()
     const dispatch = useDispatch();
@@ -13,10 +13,15 @@ const CountryDetail = () => {
       dispatch( getCountryById(id) )
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch])
+
+    const handleId = (e) => {
+        //e.preventDefault()
+        setCountryId(id)
+      }
     
     const countryDetail = useSelector(state => state.countryDetail);
     const { flag, name, region, subregion, capital, population, area, activities, /* maps */ } = countryDetail
-    console.log(countryDetail)
+    //console.log(countryDetail)
     return (
         <div className='country_detail'>
             <div className='country_card_detail'>
@@ -40,7 +45,7 @@ const CountryDetail = () => {
                             <p key={i}>{a.name}</p>
                         ))
                         :
-                        <Link className='btn_create-activity-detail' to={`/activity`}>Register activity</Link>
+                        <Link className='btn_create-activity-detail' to={`/activity`} onClick={handleId} >Register activity</Link>
                     }
                 </div>
                 {/* <div className='maps_container'>

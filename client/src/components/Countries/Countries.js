@@ -5,7 +5,7 @@ import CountryCard from './CountryCard';
 import './Countries.css'
 import CountryNotFound from './CountryNotFound';
 
-const Countries = () => {
+const Countries = ({setCountryId}) => {
 
     const dispatch = useDispatch();
 
@@ -129,12 +129,12 @@ const Countries = () => {
                 <div className='filter'>
                     <button className='pag_prev' disabled={currentPage < 10} onClick={handlePrev}>PREV</button>
                     <div className='order'>
-                        <button onClick={handleAscOrder}>A - Z</button>
-                        <button onClick={handleDescOrder}>Z - A</button>
+                        <button className='btn_alfabetic' onClick={handleAscOrder}>A - Z</button>
+                        <button className='btn_alfabetic' onClick={handleDescOrder}>Z - A</button>
                     </div>
                     <div className='order'>
-                        <button onClick={handleOrderPopAsc}>+ Pop</button>
-                        <button onClick={handleOrderPopDesc}>- Pop</button>
+                        <button className='btn_population' onClick={handleOrderPopAsc}>+ POP</button>
+                        <button className='btn_population' onClick={handleOrderPopDesc}>- POP</button>
                     </div>
                     <button className='pag_next' onClick={handleNext}>NEXT</button>
                 </div>
@@ -150,6 +150,7 @@ const Countries = () => {
                                 flag={country.flag}
                                 name={country.name}
                                 continent={country.region}
+                                setCountryId={setCountryId}
                             />
                         ))
                         :
