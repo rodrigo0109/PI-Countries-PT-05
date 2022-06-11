@@ -79,7 +79,7 @@ const rootReducer = (state = initialState, action) => {
       }
 
     case GET_BY_ORDER_POP:
-      const orderCountriesPop = action.payload === 'Asc' ?
+      const orderCountriesPop = action.payload === 'Max' ?
         state.countries.sort(function (a, b) {
           if (a.population > b.population) {
             return -1;

@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
     border: 1px solid transparent;
-    background-image: url(../../images/old-retro-antique-vintage-163185.jpeg);
+    background-image: url(../../images/world-excellence-le-fonti.jpg);
     background-size: cover;
 }
 
@@ -17,6 +17,17 @@
     align-items: center;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.4);
+    animation: fadeIn 0.6s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .landing_title {
@@ -26,6 +37,10 @@
     margin-bottom: 20px;
 }
 
+.landing_title span {
+    color: gold;
+}
+
 .btn_in {
     width: 150px;
     height: 40px;
@@ -33,7 +48,20 @@
     text-align: center;
     line-height: 40px;
     text-decoration: none;
-    background-color: rgb(29, 29, 29);
+    border-radius: 4px;
+    background: #7b4397;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #dc2430, #7b4397);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #dc2430, #7b4397);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
     border-radius: 2px;
     cursor: pointer;
+}
+
+@media screen and (max-width: 1200px) {
+    .landing_title {
+        text-align: center;
+    }
 }

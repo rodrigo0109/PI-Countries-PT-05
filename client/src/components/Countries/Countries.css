@@ -1,22 +1,13 @@
 .countries {
     width: 100%;
-    height: 1200px;
-    /* border: 1px solid red; */
-    background-image: url(../../images/pexels-aaditya-arora-592753.jpg);
-    background-size: cover;
-    background-position:center;
-    /* background: #323232; */
-}
-
-@media screen and (max-width: 1400px) {
-    .countries{
-        height: 1500px;
-    }
+    height: auto;
+    background: #1D4350;  
+    background: -webkit-linear-gradient(to right, #A43931, #1D4350); 
+    background: linear-gradient(to right, #A43931, #1D4350); 
 }
 
 .countries_cards_container {
     width: 80%;
-    min-height: 800px;
     height: auto;
     margin: auto;
     margin-top: 30px;
@@ -25,12 +16,9 @@
     flex-direction: row;
     align-items: flex-start;
     justify-content: space-around;
-   /*  background-image: url(../../images/pexels-filippo-peisino-2678301\ \(1\).jpg);
-    background-size: cover; */
 }
 
 .filter_container {
-    height: 120px;
     height: 150px;
     display: flex;
     flex-direction: column;
@@ -57,7 +45,7 @@
 }
 
 .buscador {
-    width: 300px;
+    width: 100%;
     height: 100%;
     outline: none;
     border: none;
@@ -98,19 +86,7 @@
     /* color: rgb(136, 136, 136); */
 }
 
-/* .search_form .buscador:focus + .lbl_buscador .text,
-.search_form .buscardor:valid + .lbl_buscador .text{
-    transform: translateY(-80%);
-    font-size: 14px;
-    color: #08FDD8;
-} */
-/* .search_form .buscardor:valid + .lbl_buscador .text{
-    transform: translateY(-80%);
-    font-size: 14px;
-    color: #08FDD8;
-} */
-
-.search_form .buscador:focus + .lbl_buscador:after{
+.search_form .buscador:focus+.lbl_buscador:after {
     transform: translateX(0%);
 }
 
@@ -123,6 +99,7 @@
     justify-content: space-between;
     /* border: 1px solid red; */
 }
+
 .select {
     width: 120px;
     height: 100%;
@@ -134,24 +111,26 @@
     transition: all 0.3s ease-in-out;
 }
 
-.select:focus{
+.select:focus {
     border: 0.5px solid #08FDD8;
     color: #08FDD8;
     transition: all 0.3s ease-in-out;
 }
-.select:hover{
+
+.select:hover {
     border: 0.5px solid #08FDD8;
     color: #08FDD8;
     transition: all 0.3s ease-in-out;
 }
 
 .filter {
-    width: 80%;
+    width: 60%;
     height: auto;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
+    /* border: 1px solid red; */
 }
 
 .order {
@@ -163,16 +142,6 @@
     /* border: 1px solid red; */
 }
 
-/* .order button {
-    width: 60px;
-    height: 30px;
-    color: #08FDD8;
-    outline: none;
-    border: 1px solid #08FDD8;
-    background: transparent;
-    cursor: pointer;
-} */
-
 .btn_alfabetic {
     width: 60px;
     height: 30px;
@@ -183,13 +152,14 @@
     cursor: pointer;
     transition: all 0.2s ease;
 }
+
 .btn_alfabetic:hover {
     background-color: #08FDD8;
     color: #111;
     font-weight: bolder;
 }
 
-.btn_population{
+.btn_population {
     width: 60px;
     height: 30px;
     color: #08FDD8;
@@ -199,19 +169,34 @@
     cursor: pointer;
     transition: all 0.2s ease;
 }
+
 .btn_population:hover {
     background-color: #08FDD8;
     color: #111;
     font-weight: bolder;
 }
 
-.pag_prev{
+.paginado {
+    width: 250px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    /* border: 1px solid red; */
+}
+
+.paginado p {
+    font-size: 14px;
+    color: #08FDD8;
+}
+
+.pag_prev {
     width: 60px;
     height: 30px;
     color: #FD2155;
     outline: none;
     border: 1px solid #FD2155;
-    background: linear-gradient(to right, transparent 50%,#FD2155 50%);
+    background: linear-gradient(to right, transparent 50%, #FD2155 50%);
     background-size: 200%;
     background-position: left;
     cursor: pointer;
@@ -230,7 +215,7 @@
     color: #FD2155;
     outline: none;
     border: 1px solid #FD2155;
-    background: linear-gradient(to left, transparent 50%,#FD2155 50%);
+    background: linear-gradient(to left, transparent 50%, #FD2155 50%);
     background-size: 200%;
     background-position: right;
     cursor: pointer;
@@ -243,7 +228,57 @@
     font-weight: bolder;
 }
 
+@media screen and (max-width: 750px) {
+    .search_form {
+        width: 200px;
+    }
 
-/* #202020 */
-/* #08FDD8  botones turquesa*/
-/* #FD2155 botones rosa */
+    .filter {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .search_form {
+        width: 100%;
+    }
+
+    .filter {
+        width: 80%;
+        height: auto;
+        flex-direction: column;
+    }
+    .filter_container {
+        height: 250px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        background: #202020;
+        /* border: 1px solid red; */
+    }
+    
+    .input_container {
+        width: 90%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    .search {
+        width: 100%;
+        height: 40px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-evenly;
+        /* border: 1px solid red; */
+    }
+    
+    .select {
+        width: 40%;
+        margin-top: 20px;
+    }
+}

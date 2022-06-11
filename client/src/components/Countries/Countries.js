@@ -16,6 +16,7 @@ const Countries = ({setCountryId}) => {
     const [order, setOrder] = useState('');
     const [continent, setContinent] = useState('')
     const [act, setAct] = useState('')
+    const [page, setPage] = useState(1)
 
     const handleInputChange = (e) => {
         dispatch(getCountriesByName(e.target.value))
@@ -35,19 +36,25 @@ const Countries = ({setCountryId}) => {
     const handleNext = () => {
         if (state.length <= currentPage + 10) {
             setCurrentPage(currentPage);
-        } else setCurrentPage(currentPage + 10);
+        } else {
+            setCurrentPage(currentPage + 10);
+            setPage( page + 1 )
+        }
     }
 
     const handlePrev = () => {
         if (currentPage < 9) {
             setCurrentPage(0);
+            setPage(1)
         } else {
             setCurrentPage(currentPage - 10);
+            setPage( page - 1 )
         }
     }
 
     const firstPage = () => {
         setCurrentPage(0);
+        setPage(1)
     };
 
     const countries = state.slice(currentPage, currentPage + 10)
@@ -76,12 +83,12 @@ const Countries = ({setCountryId}) => {
     }
 
     const handleOrderPopAsc = (e) => {
-        dispatch(getByOrderPop('Asc'))
-        setOrder('Asc')
+        dispatch(getByOrderPop('Max'))
+        setOrder('Max')
     }
     const handleOrderPopDesc = (e) => {
-        dispatch(getByOrderPop('Desc'))
-        setOrder('Desc')
+        dispatch(getByOrderPop('Min'))
+        setOrder('Min')
     }
 
     const handleActivity = (e) => {
@@ -128,16 +135,19 @@ const Countries = ({setCountryId}) => {
                 </div>
 
                 <div className='filter'>
-                    <button className='pag_prev' disabled={currentPage < 10} onClick={handlePrev}>PREV</button>
                     <div className='order'>
                         <button className='btn_alfabetic' onClick={handleAscOrder}>A - Z</button>
                         <button className='btn_alfabetic' onClick={handleDescOrder}>Z - A</button>
+                    </div>
+                    <div className='paginado'>
+                        <button className='pag_prev' onClick={handlePrev}>PREV</button>
+                        <p>{page}/{Math.round(state.length / 10)}</p>
+                        <button className='pag_next' onClick={handleNext}>NEXT</button>
                     </div>
                     <div className='order'>
                         <button className='btn_population' onClick={handleOrderPopAsc}>+ POP</button>
                         <button className='btn_population' onClick={handleOrderPopDesc}>- POP</button>
                     </div>
-                    <button className='pag_next' onClick={handleNext}>NEXT</button>
                 </div>
             </div>
 

@@ -6,8 +6,12 @@
     border: 1px solid transparent;
     text-align: center;
     /* background: #202020; */
-    background-image: url(../../images/pexels-aaditya-arora-592753.jpg);
-    background-size: cover;
+    /* background-image: url(../../images/pexels-aaditya-arora-592753.jpg);
+    background-size: cover; */
+    background: #1D4350;  
+    background: -webkit-linear-gradient(to right, #A43931, #1D4350); 
+    background: linear-gradient(to right, #A43931, #1D4350); 
+    
 }
 
 .create_activity_title{
@@ -211,3 +215,9 @@
 /* .field_container select{
     width: 100%;
 } */
+@media screen and (max-width: 380px) {
+    
+.form {
+    width: 90%;
+}
+}

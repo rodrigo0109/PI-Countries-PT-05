@@ -114,12 +114,12 @@
     left: 30px;
     text-decoration: none;
     color: #111;
-    font-size: 42px;
+    font-size: 22px;
     /* background-color: rgb(221, 209, 37); */
     background: #08FDD8;
-    width: 55px;
-    height: 55px;
-    line-height: 55px;
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
     text-align: center;
     border-radius: 50%;
     box-shadow: 0 1px 10px rgba(0, 0, 0, 0.4);
@@ -132,13 +132,15 @@
     line-height: 30px;
     bottom: 15px; 
     text-decoration: none;
-    color: #fff;
+    color: #111;
+    font-weight: bolder;
     width: 180px;
     height: 30px;
+    border-radius: 4px;
     /* border: 1px solid red; */
     /* background-color: #111; */
     background: #FD2155;
-    transform: skew(-20deg);
+    /* transform: skew(-20deg); */
 }
 
 .text_skew{
@@ -154,8 +156,12 @@
     align-items: center;
     position: relative;
     /* border: 1px solid red; */
-    background-image: url(../../images/pexels-aaditya-arora-592753.jpg);
-    background-size: cover;
+    /* background-image: url(../../images/old-retro-antique-vintage-163185.jpeg);
+    background-size: cover; */
+    background: #1D4350;  
+    background: -webkit-linear-gradient(to right, #A43931, #1D4350); 
+    background: linear-gradient(to right, #A43931, #1D4350); 
+    
 }
 
 .country_card_detail{
@@ -305,7 +311,24 @@
     background-position: left;
     color: #111;
 }
-/* .country_card h2{
 
-} */
+@media screen and (max-width: 1200px){
 
+    .country_detail {
+        height: auto;
+    }
+
+    .country_card_detail {
+        width: 90%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        margin-top: 30px;
+    }
+
+    .act_container{
+        width: 200px;
+        height: auto;
+        margin-bottom: 30px;
+    }
+}
