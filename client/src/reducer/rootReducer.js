@@ -44,7 +44,7 @@ const rootReducer = (state = initialState, action) => {
 
     case ORDER_BY_ACTIVITIES:
       const activities = state.countriesFiltered;
-      const activitiesFiltered = action.payload === 'All' ? activities.filter(e => e.activities.length > 0) :
+      const activitiesFiltered = action.payload === 'All' ? activities.filter(e => e.activities.length > 0) : //que contiene una act
         activities.filter(c => c.activities.find(el => el.name.toLowerCase() === action.payload))
       return {
         ...state,

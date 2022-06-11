@@ -18,10 +18,21 @@ const CountryDetail = ({setCountryId}) => {
         //e.preventDefault()
         setCountryId(id)
       }
+
+    const values = (val) => {
+        if( val > 1000000 ){
+            return Math.round(val / 1000000 * 100) / 100 + ' Millions'
+        }
+        if( val > 1000 ){
+            return Math.round(val / 1000 ) + ' Thousand'
+        }
+        else return val 
+    }
     
     const countryDetail = useSelector(state => state.countryDetail);
     const { flag, name, region, subregion, capital, population, area, activities, /* maps */ } = countryDetail
-    //console.log(countryDetail)
+    //console.log(activities)
+
     return (
         <div className='country_detail'>
             <div className='country_card_detail'>
@@ -34,18 +45,23 @@ const CountryDetail = ({setCountryId}) => {
                     <p><span>Capital:</span> {capital}</p>
                     <p><span>Continent:</span> {region}</p>
                     <p><span>Region:</span> {subregion}</p>
-                    <p><span>Surface:</span> {area} KM</p>
-                    <p><span>Pop.</span> {population}</p>
+                    <p><span>Surface:</span> {values(area)} Km²</p>
+                    <p><span>Pop.</span> {values(population)}</p>
                 </div>
                 <div className='act_container'>
                     <h2>Activities</h2>
                     {
                         activities?.length > 0 ? 
                         activities.map( (a,i) => (
-                            <p key={i}>{a.name}</p>
+                            <div key={i} className="act_description">
+                                <h3>{a.name}</h3>
+                                <p ><span>Duration:</span> {a.duration}</p>
+                                <p ><span>Diff.:</span> {a.difficulty}</p>
+                                <p ><span>Season:</span> {a.season}</p>
+                            </div>
                         ))
                         :
-                        <Link className='btn_create-activity-detail' to={`/activity`} onClick={handleId} >Register activity</Link>
+                        <Link className='btn_create-activity-detail' to={`/activity`} onClick={handleId} >Create activity</Link>
                     }
                 </div>
                 {/* <div className='maps_container'>
@@ -54,8 +70,8 @@ const CountryDetail = ({setCountryId}) => {
                         width="100%"
                         height="209"
                         frameBorder="0" style={{border:"0"}}
-                        referrerPolicy="no-referrer-when-downgrade"
-                        src={'https://goo.gl/maps/47dmgeXMZyhDHyQW8'}
+                        
+                        src={`${maps}&embedded=true`}
                         allowFullScreen
                     >
                     </iframe>

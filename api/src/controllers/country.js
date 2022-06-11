@@ -44,6 +44,7 @@ async function getCountryById(req, res) {
                 {
                     id: a.id,
                     name: a.name,
+                    duration: a.duration,
                     difficulty: a.difficulty,
                     season: a.season
                 }
