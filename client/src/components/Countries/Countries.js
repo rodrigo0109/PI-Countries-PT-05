@@ -64,8 +64,12 @@ const Countries = ({setCountryId}) => {
         setCurrentPage(0);
         setPage(1)
     };
-
-    const countries = state.slice(currentPage, currentPage + 10)
+    
+    const pagination = (currentPage) => {
+        if(currentPage === 0) return currentPage + 9 
+        return currentPage + 10
+    }
+    const countries = state.slice(currentPage, pagination(currentPage))
 
     useEffect(() => {
         firstPage()
