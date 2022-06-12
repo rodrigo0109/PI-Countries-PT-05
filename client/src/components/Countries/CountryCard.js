@@ -17,7 +17,7 @@ const CountryCard = ({flag, name, continent, id, setCountryId}) => {
           <h2>{continent}</h2>
           <Link className='btn_info' to={`/countries/${id}`}>+</Link>
         </div>
-          <Link className='btn_create-activity' to={`/activity`} onClick={handleId} ><span className='text_skew'>+ Activity</span></Link>
+          <Link className='btn_create-activity' to={`/activity`} onClick={handleId} ><span className='text_skew'>+ Tourist activity</span></Link>
     </div>
   )
 }

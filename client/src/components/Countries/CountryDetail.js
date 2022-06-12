@@ -61,7 +61,7 @@ const CountryDetail = ({setCountryId}) => {
                             </div>
                         ))
                         :
-                        <Link className='btn_create-activity-detail' to={`/activity`} onClick={handleId} >Create activity</Link>
+                        <Link className='btn_create-activity-detail' to={`/activity`} onClick={handleId} >+ Tourist activity</Link>
                     }
                 </div>
                 {/* <div className='maps_container'>

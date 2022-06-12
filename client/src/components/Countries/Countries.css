@@ -1,5 +1,6 @@
 .countries {
     width: 100%;
+    min-height: 100vh;
     height: auto;
     background: #1D4350;  
     background: -webkit-linear-gradient(to right, #A43931, #1D4350); 

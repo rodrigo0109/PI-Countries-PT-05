@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { filterByContinent, getActivities, getByOrderPop, getCountriesByName, Order, orderByActivity } from '../../actions/actions';
 import CountryCard from './CountryCard';
-import './Countries.css'
 import CountryNotFound from './CountryNotFound';
+import './Countries.css'
 
 const Countries = ({setCountryId}) => {
 
@@ -14,22 +14,30 @@ const Countries = ({setCountryId}) => {
 
     const [currentPage, setCurrentPage] = useState(0);
     const [order, setOrder] = useState('');
-    const [continent, setContinent] = useState('')
-    const [act, setAct] = useState('')
+    const [filters, setFilters] = useState({
+        continent:'',
+        act:''
+    });
     const [page, setPage] = useState(1)
 
     const handleInputChange = (e) => {
         dispatch(getCountriesByName(e.target.value))
-        //setCountry(e.target.value)
-        //dispatch(filterByContinent('All'))
-        setContinent('All')  //al escribir limpia el filtro por continente
-        setAct('') //al escribir limpia el filtro por actividad
+        setFilters({
+            continent: 'All',  //al escribir limpia el filtro por continente
+            act: ''            //al escribir limpia el filtro por actividad
+        })
+        order !== '' && setOrder('')
+        localStorage.setItem('search',e.target.value) 
     }
 
     //////// SELECT_CONTINENT ///////////
     const handleSearchChange = (e) => {
         dispatch(filterByContinent(e.target.value))
-        setContinent(e.target.value)
+        setFilters({
+            ...filters,
+            continent: e.target.value
+        })
+        setOrder('')
     }
 
     ///////// PAGINADO ////////////////////////
@@ -93,25 +101,24 @@ const Countries = ({setCountryId}) => {
 
     const handleActivity = (e) => {
         dispatch(orderByActivity(e.target.value))
-        setAct(e.target.value)
+        setFilters({
+            ...filters,
+            act: e.target.value
+        })
     }
 
-
-    //console.log(state)
     return (
         <div className='countries'>
             <div className='filter_container'>
                 <div className='input_container'>
                     <form className='search_form'>
-                        <input className='buscador' autoComplete='off' type='text' name='country' /* value={country} */ onChange={(e) => handleInputChange(e)} />
+                        <input className='buscador' autoComplete='off' type='text' autoFocus name='country' value={ localStorage.getItem('search') } onChange={(e) => handleInputChange(e)} />
                         <label className='lbl_buscador' htmlFor='country'>
                             <span className='text'>Country</span>
                         </label>
                     </form>
                     <div className='search'>
-                        <label htmlFor='continent'></label>
-                        <select className='select' value={continent} onChange={(e) => handleSearchChange(e)} >
-                            {/* <option>Order by continent</option> */}
+                        <select className='select' value={filters.continent} onChange={(e) => handleSearchChange(e)} >
                             <option value={'All'}>All continents</option>
                             <option value={'Africa'}>Africa</option>
                             <option value={'Americas'}>Americas</option>
@@ -120,9 +127,7 @@ const Countries = ({setCountryId}) => {
                             <option value={'Oceania'}>Oceania</option>
                             <option value={'Antarctic'}>Antarctic</option>
                         </select>
-
-                        <label htmlFor='activity'></label>
-                        <select className='select' value={act} onChange={handleActivity} >
+                        <select className='select' value={filters.act} onChange={handleActivity} >
                             <option value={''}>Select activity</option>
                             <option value={'All'}>All activities</option>
                             {
