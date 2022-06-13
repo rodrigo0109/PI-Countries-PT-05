@@ -24,7 +24,7 @@ const { loadDatabase } = require('./src/loadDatabase')
 // Syncing all the models at once.
 const PORT = process.env.PORT || 3001
 conn.sync({ force: true }).then(() => {
-  server.listen(`${PORT}`, () => {
+  server.listen(PORT, () => {
     loadDatabase()
     console.log('%s listening at 3001'); // eslint-disable-line no-console
   });
