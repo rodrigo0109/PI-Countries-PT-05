@@ -12,7 +12,7 @@ export const ORDER_BY_ACTIVITIES = 'ORDER_BY_ACTIVITIES'
 
 export const getAllCountries = () => {
     return async (dispatch) => {
-        let res = await axios.get('http://localhost:3001/countries')
+        let res = await axios.get(`https://picountries-rhp.herokuapp.com/countries`)
         dispatch({
             type: GET_ALL_COUNTRIES,
             payload: res.data
@@ -22,7 +22,7 @@ export const getAllCountries = () => {
 
 export const getCountriesByName = (name) => {
     return async (dispatch) => {
-        let res = await axios.get(`http://localhost:3001/countries?name=${name}`)  
+        let res = await axios.get(`https://picountries-rhp.herokuapp.com/countries?name=${name}`)  
         dispatch({
             type: GET_COUNTRIES_NAME,
             payload: res.data
@@ -32,7 +32,7 @@ export const getCountriesByName = (name) => {
 
 export const getCountryById = (id) => {
     return async (dispatch) => {
-        let res = await axios.get(`http://localhost:3001/countries/${id}`)
+        let res = await axios.get(`https://picountries-rhp.herokuapp.com/countries/${id}`)
         dispatch({
             type: GET_COUNTRY_ID,
             payload: res.data
@@ -42,7 +42,7 @@ export const getCountryById = (id) => {
 
 export const getActivities = () => {
     return async (dispatch) => {
-        let res = await axios.get('http://localhost:3001/activity')
+        let res = await axios.get('https://picountries-rhp.herokuapp.com/activity')
         //console.log(res.data)
         dispatch({
             type: GET_ACTIVITIES,
@@ -53,7 +53,7 @@ export const getActivities = () => {
 
 export const createActivity = (payload) => {
     return async () => {
-        await axios.post(`http://localhost:3001/activity`, payload)
+        await axios.post(`https://picountries-rhp.herokuapp.com/activity`, payload)
     }
 }
 
