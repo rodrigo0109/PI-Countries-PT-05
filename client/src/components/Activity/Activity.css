@@ -1,4 +1,6 @@
-
+* {
+    font-family: 'Anek Malayalam', sans-serif;
+}
 
 .activity_container {
     width: 100%;
@@ -16,7 +18,7 @@
 
 .create_activity_title{
     font-size: 22px;
-    font-weight: lighter;
+    font-weight: 300;
     color: #08FDD8;
 }
 

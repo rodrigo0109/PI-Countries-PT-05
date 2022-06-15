@@ -1,4 +1,6 @@
-
+* {
+    font-family: 'Anek Malayalam', sans-serif;
+}
 .about_container {
     width: 100%;
     height: 100vh;
@@ -50,12 +52,13 @@
 
 .about_title {
     font-size: 22px;
-    color: #666;
+    color: rgb(189, 186, 186);
 }
 
 .about_subtitle{
     font-size: 18px;
-    color: #2c9686;
+    color: #45ecd3;
+    letter-spacing: 2px;
 }
 
 .text_container {

@@ -15,6 +15,7 @@ const Countries = ({setCountryId}) => {
     const [currentPage, setCurrentPage] = useState(0);
     const [order, setOrder] = useState('');
     const [filters, setFilters] = useState({
+        search: '',
         continent:'',
         act:''
     });
@@ -23,6 +24,7 @@ const Countries = ({setCountryId}) => {
     const handleInputChange = (e) => {
         dispatch(getCountriesByName(e.target.value))
         setFilters({
+            search: e.target.value,
             continent: 'All',  //al escribir limpia el filtro por continente
             act: ''            //al escribir limpia el filtro por actividad
         })
@@ -174,7 +176,7 @@ const Countries = ({setCountryId}) => {
                             />
                         ))
                         :
-                        <CountryNotFound />
+                        <CountryNotFound filters={filters.search}/>
                 }
             </div>
         </div>

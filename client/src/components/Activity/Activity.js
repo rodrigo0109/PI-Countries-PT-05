@@ -88,7 +88,7 @@ const Activity = ({countryId}) => {
 
   return (
     <div className='activity_container'>
-      <h1 className='create_activity_title'>Create activity</h1>
+      <h1 className='create_activity_title'>Create tourist activity</h1>
       <form className='form' onSubmit={handleSubmit}>
         <div className='field_container'>
           <input className='buscador' type='text' name='name' autoComplete='off' onChange={handleInputChange} autoFocus />

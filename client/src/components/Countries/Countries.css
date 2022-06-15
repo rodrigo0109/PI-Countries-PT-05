@@ -1,3 +1,7 @@
+* {
+    font-family: 'Anek Malayalam', sans-serif;
+}
+
 .countries {
     width: 100%;
     min-height: 100vh;
@@ -26,6 +30,7 @@
     align-items: center;
     justify-content: space-evenly;
     background: #202020;
+    box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.4);
 }
 
 .input_container {
