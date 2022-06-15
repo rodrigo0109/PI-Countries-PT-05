@@ -2,7 +2,8 @@ import React from 'react';
 import './App.css';
 
 import {
-  BrowserRouter as Router,
+  HashRouter,
+  BrowserRouter,
   Routes,
   Route,
 } from "react-router-dom";
@@ -11,12 +12,12 @@ import Home from './components/Home/Home';
 
 function App() {
   return (
-    <Router>
+    <HashRouter>
       <Routes>
         <Route path='/' exact element={<Landing />} />
         <Route path='/*' exact element={<Home />} />
       </Routes>
-    </Router>
+    </HashRouter>
   );
 }
 
