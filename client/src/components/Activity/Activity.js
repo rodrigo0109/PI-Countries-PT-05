@@ -91,7 +91,7 @@ const Activity = ({countryId}) => {
       <h1 className='create_activity_title'>Create tourist activity</h1>
       <form className='form' onSubmit={handleSubmit}>
         <div className='field_container'>
-          <input className='buscador' type='text' name='name' autoComplete='off' onChange={handleInputChange} autoFocus />
+          <input className='buscador' type='text' name='name' autoComplete='off' onChange={handleInputChange} autoFocus={window.innerWidth < 412 ? false : true} />
           <label className='lbl_buscador' htmlFor='name'>
             <span className='text'>Name of activity</span>
           </label>

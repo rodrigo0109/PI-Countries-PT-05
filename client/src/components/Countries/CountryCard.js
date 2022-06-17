@@ -15,7 +15,7 @@ const CountryCard = ({ flag, name, continent, id, setCountryId }) => {
       <div className='content'>
         <h1>{name}</h1>
         <h2>{continent}</h2>
-        <Link className='btn_info' to={`/countries/${id}`}><span class="material-symbols-outlined">
+        <Link className='btn_info' to={`/countries/${id}`}><span className="material-symbols-outlined">
           add
         </span></Link>
       </div>

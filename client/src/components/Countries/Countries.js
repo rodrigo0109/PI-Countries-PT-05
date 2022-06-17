@@ -5,7 +5,7 @@ import CountryCard from './CountryCard';
 import CountryNotFound from './CountryNotFound';
 import './Countries.css'
 
-const Countries = ({setCountryId}) => {
+const Countries = ({ setCountryId }) => {
 
     const dispatch = useDispatch();
 
@@ -16,8 +16,8 @@ const Countries = ({setCountryId}) => {
     const [order, setOrder] = useState('');
     const [filters, setFilters] = useState({
         search: '',
-        continent:'',
-        act:''
+        continent: '',
+        act: ''
     });
     const [page, setPage] = useState(1)
 
@@ -29,7 +29,7 @@ const Countries = ({setCountryId}) => {
             act: ''            //al escribir limpia el filtro por actividad
         })
         order !== '' && setOrder('')
-        localStorage.setItem('search',e.target.value) 
+        localStorage.setItem('search', e.target.value)
     }
 
     //////// SELECT_CONTINENT ///////////
@@ -48,7 +48,7 @@ const Countries = ({setCountryId}) => {
             setCurrentPage(currentPage);
         } else {
             setCurrentPage(currentPage + 10);
-            setPage( page + 1 )
+            setPage(page + 1)
         }
     }
 
@@ -58,7 +58,7 @@ const Countries = ({setCountryId}) => {
             setPage(1)
         } else {
             setCurrentPage(currentPage - 10);
-            setPage( page - 1 )
+            setPage(page - 1)
         }
     }
 
@@ -66,9 +66,9 @@ const Countries = ({setCountryId}) => {
         setCurrentPage(0);
         setPage(1)
     };
-    
+
     const pagination = (currentPage) => {
-        if(currentPage === 0) return currentPage + 9 
+        if (currentPage === 0) return currentPage + 9
         return currentPage + 10
     }
     const countries = state.slice(currentPage, pagination(currentPage))
@@ -113,12 +113,25 @@ const Countries = ({setCountryId}) => {
         })
     }
 
+    const selectPage = (i) => {
+        setCurrentPage(i*10)
+        setPage(i+1)
+    }
+
+    const numbers = () => {
+        let  pages = []
+        for (let i = 0; i < state.length/10; i++) {
+            pages.push(i)
+        }
+        return pages
+    }
+
     return (
         <div className='countries'>
             <div className='filter_container'>
                 <div className='input_container'>
                     <form className='search_form'>
-                        <input className='buscador' autoComplete='off' type='text' autoFocus name='country' value={ localStorage.getItem('search') } onChange={(e) => handleInputChange(e)} />
+                        <input className='buscador' autoComplete='off' type='text' name='country' value={localStorage.getItem('search')} onChange={(e) => handleInputChange(e)} />
                         <label className='lbl_buscador' htmlFor='country'>
                             <span className='text'>Country</span>
                         </label>
@@ -151,9 +164,18 @@ const Countries = ({setCountryId}) => {
                         <button className='btn_alfabetic' onClick={handleDescOrder}>Z - A</button>
                     </div>
                     <div className='paginado'>
-                        <button className='pag_prev' onClick={handlePrev}>PREV</button>
-                        <p>{page}/{Math.round(state.length / 10)}</p>
-                        <button className='pag_next' onClick={handleNext}>NEXT</button>
+                        <div className='btn_page_container'>
+                            {
+                                numbers().map((e, i) => (
+                                    <p key={i} onClick={() => selectPage(i)} className={ page === i + 1 ? 'btn_page_select-active' : 'btn_page_select'}>{i+1}</p>
+                                ))
+                            }
+                        </div>
+                        <div className='btn_direct_container'>
+                            <button className='pag_prev' onClick={handlePrev}>PREV</button>
+                            <p>{page}/{Math.round(state.length / 10)}</p>
+                            <button className='pag_next' onClick={handleNext}>NEXT</button>
+                        </div>
                     </div>
                     <div className='order'>
                         <button className='btn_population' onClick={handleOrderPopAsc}>+ POP</button>
@@ -176,7 +198,7 @@ const Countries = ({setCountryId}) => {
                             />
                         ))
                         :
-                        <CountryNotFound filters={filters.search}/>
+                        <CountryNotFound filters={filters.search} />
                 }
             </div>
         </div>
