@@ -1,18 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { createActivity, getAllCountries } from '../../actions/actions';
 import { useDispatch, useSelector } from 'react-redux';
-import './Activity.css'
+import './Activity.css';
 import { useNavigate } from 'react-router-dom';
 
 const Activity = ({countryId}) => {
 
   //console.log('id en activity', countryId)
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const countries = useSelector(state => state.countriesFiltered);
 
-  const countriesList = [...countries]
+  const countriesList = [...countries];
 
   countriesList.sort((a, b) => {
     if (a.name < b.name) {
@@ -22,7 +22,7 @@ const Activity = ({countryId}) => {
       return 1;
     }
     return 0;
-  })
+  });
 
   const [input, setInput] = useState({
     name: '',
@@ -30,7 +30,7 @@ const Activity = ({countryId}) => {
     duration: 0,
     season: '',
     countries: countryId.length > 0 ? [countryId] : []
-  })
+  });
   //console.log(input.countries)
   const validate = (value, condition) => {
     if (value === '') return false
@@ -41,50 +41,50 @@ const Activity = ({countryId}) => {
       }
     }
     if (value === res.join('')) return true
-  }
+  };
 
   const handleInputChange = (e) => {
     setInput({
       ...input,
       [e.target.name]: e.target.value
     })
-  }
+  };
 
   //console.log(input)
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    let countries = input.countries
-    let name = input.name.toLowerCase()
-    let caracteres = 'abcdefghijklmnñopqrstuvwxyzáéíóúßäëïöü '
+    e.preventDefault();
+    let countries = input.countries;
+    let name = input.name.toLowerCase();
+    let caracteres = 'abcdefghijklmnñopqrstuvwxyzáéíóúßäëïöü ';
 
-    if (!validate(name, caracteres)) return alert('Field name is required, only letters')
-    if (countries.length === 0) return alert('Select one country minimum')
-    if (input.difficulty === 0 || input.duration === 0 || input.season === '') return alert('One option on every field is required')
+    if (!validate(name, caracteres)) return alert('Field name is required, only letters');
+    if (countries.length === 0) return alert('Select one country minimum');
+    if (input.difficulty === 0 || input.duration === 0 || input.season === '') return alert('One option on every field is required');
 
-    dispatch(createActivity(input))
+    await dispatch(createActivity(input));
 
     navigate('/countries', {
       replace: true
     })
-    alert('Activity created')
-    await dispatch(getAllCountries()) //para que se cargue la nueva info al crear actividad
+    alert('Activity created');
+    await dispatch(getAllCountries()); //para que se cargue la nueva info al crear actividad
   }
 
   const handleCountry = (e) => {
-    if (input.countries.includes(e.target.value)) return alert('This country was already selected')
+    if (input.countries.includes(e.target.value)) return alert('This country was already selected');
     setInput({
       ...input,
       countries: [...input.countries, e.target.value]
     })
-  }
+  };
 
   const handleDeleteCountry = (e, country) => {
-    e.preventDefault()
+    e.preventDefault();
     setInput({
       ...input,
       countries: input.countries.filter(el => el !== country)
     })
-  }
+  };
 
   return (
     <div className='activity_container'>

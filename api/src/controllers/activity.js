@@ -5,11 +5,11 @@ async function getActivities(req, res) {
         let activities = await Activity.findAll({include: Country})
         //console.log(activities.id)
         let countriesA = activities.map( a => a.name.toLowerCase() )
-        const total = countriesA.filter((item, index) => {
+        /* const total = countriesA.filter((item, index) => {
             return countriesA.indexOf(item) === index;
-        })
+        }) */
         //console.log(countriesA)
-        res.send(total)
+        res.send(countriesA)
     } catch (error) {
         res.send(error)
     }
@@ -32,20 +32,6 @@ async function createActivity(req, res) {
                 model: Country
             }
         })
-        /* let activityCountry = await Activity.findOne({
-            where: {
-                name: name
-            },
-            attributes: {
-                exclude: ['updatedAt', 'createdAt'],
-            },
-            include: {
-                model: Country,
-                through: {
-                    attributes: []
-                }
-            }
-        }) */
         //console.log(activityCountry)
         res.send(activityCountry)
     } catch (error) {
