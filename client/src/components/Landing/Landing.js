@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import './Landing.css'
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import './Landing.css';
 
 const Landing = () => {
 
-  const [classActive, setClassActive] = useState('')
+  const [classActive, setClassActive] = useState('');
 
   useEffect(() => {
     setTimeout(() => {
       setClassActive('_active')
     }, 2000);
-  }, [])
+  }, []);
   
   
   return (

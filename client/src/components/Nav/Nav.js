@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom';
 import { getAllCountries } from '../../actions/actions';
-import './Nav.css'
+import './Nav.css';
 
 const Nav = ({setCountryId}) => {
 
@@ -10,11 +10,11 @@ const Nav = ({setCountryId}) => {
 
     useEffect(() => {
         dispatch( getAllCountries() )
-      }, [dispatch])
+      }, [dispatch]);
 
     const handleId = () => {
         setCountryId('')
-    }
+    };
 
     return (
         <div className='nav_container'>
