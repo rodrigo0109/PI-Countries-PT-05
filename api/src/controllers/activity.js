@@ -17,16 +17,7 @@ async function createActivity(req, res) {
             name, difficulty, duration, season
         })
         await newActivity.setCountries(countries)
-
-        let activityCountry = await Activity.findOne({
-            where: {
-                name: name
-            },
-            include: {
-                model: Country
-            }
-        })
-        res.send(activityCountry);
+        res.send('ok');
     } catch (error) {
         res.send(error);
     }
