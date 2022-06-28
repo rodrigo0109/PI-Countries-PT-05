@@ -1,6 +1,6 @@
-import React from 'react'
-import image from '../../images/not_found.jpg'
-import './CountryCard.css'
+import React from 'react';
+import image from '../../images/not_found.jpg';
+import './CountryCard.css';
 
 const CountryNotFound = ({filters}) => {
     

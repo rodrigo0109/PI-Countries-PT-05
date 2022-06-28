@@ -18,20 +18,6 @@ async function loadDatabase() {
                 maps: c.maps.googleMaps
             }
         ))
-        /* countriesApiRes.forEach( async(c) => {
-            await Country.findOrCreate({
-                where: {
-                    id: c.id,
-                    name: c.name,
-                    flag: c.flag,
-                    region: c.region,
-                    capital: c.capital,
-                    subregion: c.subregion,
-                    area: c.area,
-                    population: c.population
-                }
-            })
-        } ) */
         await Country.bulkCreate(countriesApiRes) //crea varias filas de una recibiendo el arreglo de paises
         console.log('ok')
     } else {

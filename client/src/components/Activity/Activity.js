@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 
 const Activity = ({countryId}) => {
 
-  //console.log('id en activity', countryId)
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -31,7 +30,7 @@ const Activity = ({countryId}) => {
     season: '',
     countries: countryId.length > 0 ? [countryId] : []
   });
-  //console.log(input.countries)
+
   const validate = (value, condition) => {
     if (value === '') return false
     let res = []
@@ -50,7 +49,6 @@ const Activity = ({countryId}) => {
     })
   };
 
-  //console.log(input)
   const handleSubmit = async (e) => {
     e.preventDefault();
     let countries = input.countries;
@@ -90,12 +88,14 @@ const Activity = ({countryId}) => {
     <div className='activity_container'>
       <h1 className='create_activity_title'>Create tourist activity</h1>
       <form className='form' onSubmit={handleSubmit}>
+
         <div className='field_container'>
           <input className='buscador' type='text' name='name' autoComplete='off' onChange={handleInputChange} autoFocus={window.innerWidth < 412 ? false : true} />
           <label className='lbl_buscador' htmlFor='name'>
             <span className='text'>Name of activity</span>
           </label>
         </div>
+
         <div className='field_container'>
           <select className='select_activity' type='text' name='difficulty' onChange={handleInputChange} >
             <option value={0}>Select difficulty</option>
@@ -104,6 +104,7 @@ const Activity = ({countryId}) => {
             <option value={"3"}>3</option>
           </select>
         </div>
+
         <div className='field_container'>
           <select className='select_activity' type='text' name='duration' onChange={handleInputChange} >
             <option value={0}>Select duration (in hours)</option>
@@ -119,6 +120,7 @@ const Activity = ({countryId}) => {
             <option value={10}>10</option>
           </select>
         </div>
+
         <div className='field_container'>
           <select className='select_activity' type='text' name='season' onChange={handleInputChange} >
             <option>Select season</option>
@@ -128,6 +130,7 @@ const Activity = ({countryId}) => {
             <option value={'Summer'}>Summer</option>
           </select>
         </div>
+
         <div className='field_container'>
           <select className='select_activity' type='text' name='countries' onChange={handleCountry} >
             <option value={null}>Select country/es</option>
@@ -138,6 +141,7 @@ const Activity = ({countryId}) => {
             }
           </select>
         </div>
+
         <div className='country_selected_area'>
           <ul className='ul_selected_area'>
             {
@@ -150,7 +154,9 @@ const Activity = ({countryId}) => {
             }
           </ul>
         </div>
+
         <button className='btn_save' type='submit'>SAVE</button>
+        
       </form>
     </div>
   )

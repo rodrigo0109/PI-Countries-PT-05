@@ -2,22 +2,16 @@ const { Activity, Country } = require('../db')
 
 async function getActivities(req, res) {
     try {
-        let activities = await Activity.findAll({include: Country})
-        //console.log(activities.id)
-        let countriesA = activities.map( a => a.name.toLowerCase() )
-        /* const total = countriesA.filter((item, index) => {
-            return countriesA.indexOf(item) === index;
-        }) */
-        //console.log(countriesA)
-        res.send(countriesA)
+        let activities = await Activity.findAll({include: Country});
+        let countriesA = activities.map( a => a.name.toLowerCase());
+        res.send(countriesA);
     } catch (error) {
-        res.send(error)
+        res.send(error);
     }
-}
+};
 
 async function createActivity(req, res) {
-    let { name, difficulty, duration, season, countries } = req.body
-    //console.log(req.body)
+    let { name, difficulty, duration, season, countries } = req.body;
     try {
         let newActivity = await Activity.create({
             name, difficulty, duration, season
@@ -32,12 +26,11 @@ async function createActivity(req, res) {
                 model: Country
             }
         })
-        //console.log(activityCountry)
-        res.send(activityCountry)
+        res.send(activityCountry);
     } catch (error) {
-        res.send(error)
+        res.send(error);
     }
-}
+};
 
 module.exports = {
     createActivity,

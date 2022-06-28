@@ -14,12 +14,12 @@ const Countries = ({ setCountryId }) => {
 
     const [currentPage, setCurrentPage] = useState(0);
     const [order, setOrder] = useState('');
+    const [page, setPage] = useState(1);
     const [filters, setFilters] = useState({
         search: '',
         continent: '',
         act: ''
     });
-    const [page, setPage] = useState(1)
 
     const handleInputChange = (e) => {
         dispatch(getCountriesByName(e.target.value))
@@ -71,6 +71,7 @@ const Countries = ({ setCountryId }) => {
         if (currentPage === 0) return currentPage + 9
         return currentPage + 10
     }
+
     const countries = state.slice(currentPage, pagination(currentPage))
 
     useEffect(() => {
@@ -136,7 +137,9 @@ const Countries = ({ setCountryId }) => {
                             <span className='text'>Country</span>
                         </label>
                     </form>
+
                     <div className='search'>
+
                         <select className='select' value={filters.continent} onChange={(e) => handleSearchChange(e)} >
                             <option value={'All'}>All continents</option>
                             <option value={'Africa'}>Africa</option>
@@ -146,6 +149,7 @@ const Countries = ({ setCountryId }) => {
                             <option value={'Oceania'}>Oceania</option>
                             <option value={'Antarctic'}>Antarctic</option>
                         </select>
+
                         <select className='select' value={filters.act} onChange={handleActivity} >
                             <option value={''}>Select activity</option>
                             <option value={'All'}>All activities</option>
@@ -155,14 +159,17 @@ const Countries = ({ setCountryId }) => {
                                 ))
                             }
                         </select>
+
                     </div>
                 </div>
 
                 <div className='filter'>
+                    
                     <div className='order'>
                         <button className='btn_alfabetic' onClick={handleAscOrder}>A - Z</button>
                         <button className='btn_alfabetic' onClick={handleDescOrder}>Z - A</button>
                     </div>
+
                     <div className='paginado'>
                         <div className='btn_page_container'>
                             {
@@ -171,12 +178,14 @@ const Countries = ({ setCountryId }) => {
                                 ))
                             }
                         </div>
+
                         <div className='btn_direct_container'>
                             <button className='pag_prev' onClick={handlePrev}>PREV</button>
                             <p>{page}/{Math.round(state.length / 10)}</p>
                             <button className='pag_next' onClick={handleNext}>NEXT</button>
                         </div>
                     </div>
+                    
                     <div className='order'>
                         <button className='btn_population' onClick={handleOrderPopAsc}>+ POP</button>
                         <button className='btn_population' onClick={handleOrderPopDesc}>- POP</button>
